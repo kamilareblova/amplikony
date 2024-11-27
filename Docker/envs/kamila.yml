@@ -1,0 +1,10 @@
+name: kamila
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - vardict=2019.06.04=pl526_0
+  - vardict-java=1.5.8=0
+  - r-base
+  - r-data.table

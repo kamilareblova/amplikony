@@ -6,5 +6,6 @@ channels:
 dependencies:
   - vardict=2019.06.04=pl526_0
   - vardict-java=1.5.8=0
-  - r-base
-  - r-data.table
+  - r-base=3.6.0=hce969dd_0
+  - samtools=1.6=h244ad75_5
+  - r-data.table=1.13.6=r36hcfec24a_0

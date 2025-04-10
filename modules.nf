@@ -6,15 +6,15 @@ process ALIGN {
 	tuple val(name), val(sample), path(reads)
 
 	output:
-    tuple val(name), val(sample), path("${name}.rmdup.sorted.bam"), path("${name}.rmdup.sorted.bai")
+    tuple val(name), val(sample), path("${name}.sorted.bam"), path("${name}.sorted.bai")
 
 	script:
 	rg = "\"@RG\\tID:${name}\\tSM:${name}\\tLB:${name}\\tPL:ILLUMINA\""
 	"""
 	echo ALIGN $name
 	source activate bwa
-	bwa mem -R ${rg} -t $task.cpus ${params.refindex} $reads | samtools view -Sb - | sambamba sort /dev/stdin -o ${name}.rmdup.sorted.bam
-        samtools index ${name}.rmdup.sorted.bam ${name}.rmdup.sorted.bai
+	bwa mem -R ${rg} -t $task.cpus ${params.refindex} $reads | samtools view -Sb - | sambamba sort /dev/stdin -o ${name}.sorted.bam
+        samtools index ${name}.sorted.bam ${name}.sorted.bai
 	"""
 }
 

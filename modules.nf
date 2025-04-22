@@ -3,7 +3,7 @@ process ALIGN {
 	publishDir "${params.outDirectory}/${sample.run}/mapped/", mode:'copy'
 	
 	input:
-	tuple val(name), val(sample), path(reads)
+	tuple val(name), val(sample), path(fwd), path(rev)
 
 	output:
     tuple val(name), val(sample), path("${name}.sorted.bam"), path("${name}.sorted.bai")
@@ -13,7 +13,7 @@ process ALIGN {
 	"""
 	echo ALIGN $name
 	source activate bwa
-	bwa mem -R ${rg} -t $task.cpus ${params.refindex} $reads | samtools view -Sb - | sambamba sort /dev/stdin -o ${name}.sorted.bam
+	bwa mem -R ${rg} -t $task.cpus ${params.refindex} $fwd $rev | samtools view -Sb - | sambamba sort /dev/stdin -o ${name}.sorted.bam
         samtools index ${name}.sorted.bam ${name}.sorted.bai
 	"""
 }
